@@ -48,10 +48,10 @@ WORKDIR /workspaces
 
 
 ##########################
-FROM ros_base AS ros_mocap
-RUN nala update && nala install -y ros-$ROS_DISTRO-mocap-optitrack
+#FROM ros_base AS ros_mocap
+#RUN apt update && apt install -y ros-$ROS_DISTRO-mocap-optitrack
 
 
 #############################
-FROM ros_base AS ros_gmapping
-RUN nala update && nala install -y ros-$ROS_DISTRO-gmapping
+#FROM ros_base AS ros_gmapping
+#RUN apt update && apt install -y ros-$ROS_DISTRO-gmapping
