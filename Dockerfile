@@ -6,10 +6,13 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /root/.bashrc
 ########################
 FROM ros_base AS ros_dev
 RUN apt-get update && \
-    apt-get install -y --fix-missing \
+    apt-get install -y wget
+RUN wget https://deb.volian.org/volian/pool/main/n/nala-legacy/nala-legacy_0.11.0_amd64.deb && \
+    apt-get install -y ./nala-legacy_0.11.0_amd64.deb
+RUN nala install -y -f \
     ros-$ROS_DISTRO-desktop-full 
-RUN apt-get update 
-RUN apt-get install -y \
+RUN nala update 
+RUN nala install -y \
     git \
     x11vnc \
     wget \
@@ -46,9 +49,9 @@ WORKDIR /workspaces
 
 ##########################
 FROM ros_base AS ros_mocap
-RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-mocap-optitrack
+RUN nala update && nala install -y ros-$ROS_DISTRO-mocap-optitrack
 
 
 #############################
 FROM ros_base AS ros_gmapping
-RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-gmapping
+RUN nala update && nala install -y ros-$ROS_DISTRO-gmapping
