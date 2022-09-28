@@ -8,7 +8,8 @@ FROM ros_base AS ros_dev
 RUN apt-get update && \
     apt-get install -y wget
 RUN wget https://deb.volian.org/volian/pool/main/n/nala-legacy/nala-legacy_0.11.0_amd64.deb && \
-    apt-get install -y ./nala-legacy_0.11.0_amd64.deb
+    apt-get install -y ./nala-legacy_0.11.0_amd64.deb  && \
+    rm ./nala-legacy_0.11.0_amd64.deb
 RUN nala install -y -f \
     ros-$ROS_DISTRO-desktop-full 
 RUN nala update 
@@ -32,26 +33,10 @@ RUN nala install -y \
     tcpdump \
     nano \
     tmux
-RUN cd /root && git clone https://github.com/kanaka/noVNC.git && \
-    cd noVNC/utils && git clone https://github.com/kanaka/websockify websockify
 RUN cd /root && git clone https://github.com/gpakosz/.tmux && \
     ln -s -f /root/.tmux/.tmux.conf /root/.tmux.conf && \
     cp /root/.tmux/.tmux.conf.local /root/.tmux.conf.local && \
     sed -i 's/xterm-color)/xterm-color|*-256color)/g' /root/.bashrc
 ENV DISPLAY :1
-ENV SCREEN 0
-ENV SCREEN_SIZE 1280x768x24
-COPY start_novnc.sh start_novnc.sh
-# RUN vim start_novnc.sh +"set ff=unix" +wq
-RUN dos2unix start_novnc.sh && chmod 0755 start_novnc.sh
+RUN xhost +si:localuser:root
 WORKDIR /workspaces
-
-
-##########################
-#FROM ros_base AS ros_mocap
-#RUN apt update && apt install -y ros-$ROS_DISTRO-mocap-optitrack
-
-
-#############################
-#FROM ros_base AS ros_gmapping
-#RUN apt update && apt install -y ros-$ROS_DISTRO-gmapping

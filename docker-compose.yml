@@ -54,17 +54,14 @@ services:
     environment:
       - "ROS_MASTER_URI=http://${MASTER_HOSTNAME:-master}:11311"
       - "ROS_HOSTNAME=dev"
-    ports:
-      - "6080:6080"
-    # cap_add:
-    #   - "NET_ADMIN"
-    #   - "NET_BROADCAST"
+      - "DISPLAY=${DISPLAY}"
     volumes:
       - ./workspaces/:/workspaces/
-    command: bash -c "/start_novnc.sh"
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
+    tty: true
     networks:
       - ros
-
 networks:
   ros:
     driver: bridge

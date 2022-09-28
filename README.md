@@ -10,15 +10,14 @@ You need to download Docker to manage the containerization.
 docker compose up --build
 ```
 
-3. Enter the dev container
+3. Enable docker xhost access
 ```bash
-docker exec -it ros-dev tmux
+xhost +"local:docker@"
 ```
 
-4. Access dev GUI
-
+4. Enter the dev container
 ```bash
-http://localhost:6080
+docker exec -it ros-dev tmux
 ```
 
 
