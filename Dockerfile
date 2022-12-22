@@ -37,6 +37,6 @@ RUN cd /root && git clone https://github.com/gpakosz/.tmux && \
     ln -s -f /root/.tmux/.tmux.conf /root/.tmux.conf && \
     cp /root/.tmux/.tmux.conf.local /root/.tmux.conf.local && \
     sed -i 's/xterm-color)/xterm-color|*-256color)/g' /root/.bashrc
-ENV DISPLAY :1
+ENV DISPLAY :0
 RUN xhost +si:localuser:root
 WORKDIR /workspaces
