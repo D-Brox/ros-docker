@@ -19,6 +19,7 @@ RUN nala install -y \
     wget \
     python3 \
     python3-numpy \
+    python3-numba \
     unzip \
     xvfb \
     icewm \
@@ -38,5 +39,6 @@ RUN cd /root && git clone https://github.com/gpakosz/.tmux && \
     cp /root/.tmux/.tmux.conf.local /root/.tmux.conf.local && \
     sed -i 's/xterm-color)/xterm-color|*-256color)/g' /root/.bashrc
 ENV DISPLAY :0
-RUN xhost +si:localuser:root
+ENV LIBGL_ALWAYS_SOFTWARE 1
 WORKDIR /workspaces
+RUN git config --global --add safe.directory /workspaces
