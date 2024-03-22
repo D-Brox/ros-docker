@@ -9,16 +9,16 @@ services:
     environment:
       - "ROS_MASTER_URI=http://dev:11311"
       - "ROS_HOSTNAME=dev"
-      - "DISPLAY=${DISPLAY}"
     volumes:
       - ./workspaces/:/workspaces/
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/root/.Xauthority
     tty: true
     ports:
+      - "6080:6080"
       - "11311:11311"
       - "33690:33690"
-    command: stdbuf -o L roscore
+    command: stdbuf -o L roscore & bash -c "/start_novnc.sh"
     networks:
       - ros
 networks:

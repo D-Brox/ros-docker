@@ -11,14 +11,15 @@ docker compose up --build
 docker compose start
 ```
 
-3. Enable docker xhost access
-```bash
-xhost +"local:docker@"
-```
-
-4. Enter the dev container
+3. Enter the dev container
 ```bash
 docker exec -it ros-dev tmux new -As0
+```
+
+4. Access dev GUI
+
+```bash
+http://localhost:6080
 ```
 
 5. To stop the container:
