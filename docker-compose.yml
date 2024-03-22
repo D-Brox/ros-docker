@@ -1,29 +1,13 @@
 version: '3.9'
 
 services:
-
-  master:
-    build:
-      context: ./
-      target: ros_base
-    container_name: ros-master
-    ports:
-      - "11311:11311"
-      - "33690:33690"
-    environment:
-      - "ROS_MASTER_URI=http://localhost:11311"
-    command: stdbuf -o L roscore
-    networks:
-      - ros
   dev:
     build:
       context: ./
       target: ros_dev
     container_name: ros-dev
-    depends_on:
-      - master
     environment:
-      - "ROS_MASTER_URI=http://${MASTER_HOSTNAME:-master}:11311"
+      - "ROS_MASTER_URI=http://dev:11311"
       - "ROS_HOSTNAME=dev"
       - "DISPLAY=${DISPLAY}"
     volumes:
@@ -31,6 +15,10 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/root/.Xauthority
     tty: true
+    ports:
+      - "11311:11311"
+      - "33690:33690"
+    command: stdbuf -o L roscore
     networks:
       - ros
 networks:

@@ -1,10 +1,9 @@
 # ROS-Docker Environment
 The power of ROS with Docker encapsulation
 
-1. Install Docker: 
+1. Install Docker
 
-2. Run docker compose
-
+2. Build container
 ```bash
 # First time
 docker compose up --build
